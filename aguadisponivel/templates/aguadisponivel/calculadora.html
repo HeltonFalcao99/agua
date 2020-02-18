@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Calculadora</title>
+    {% load static %}
+    <link rel="stylesheet"  href="{% static 'aguadisponivel/calc.css' %}"/>
+</head>
+
+<body>
+<div class="navbar">
+
+</div>
+    <br/>
+   
+
+    <script type="text/javascript">
+        const calculator = {
+  displayValue: '0',
+  firstOperand: null,
+  waitingForSecondOperand: false,
+  operator: null,
+};
+
+function inputDigit(digit) {
+  const { displayValue, waitingForSecondOperand } = calculator;
+
+  if (waitingForSecondOperand === true) {
+    calculator.displayValue = digit;
+    calculator.waitingForSecondOperand = false;
+  } else {
+    calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
+  }
+}
+
+function inputDecimal(dot) {
+  // If the `displayValue` does not contain a decimal point
+  if (!calculator.displayValue.includes(dot)) {
+    // Append the decimal point
+    calculator.displayValue += dot;
+  }
+}
+
+function handleOperator(nextOperator) {
+  const { firstOperand, displayValue, operator } = calculator
+  const inputValue = parseFloat(displayValue);
+
+  if (operator && calculator.waitingForSecondOperand)  {
+    calculator.operator = nextOperator;
+    return;
+  }
+
+  if (firstOperand == null) {
+    calculator.firstOperand = inputValue;
+  } else if (operator) {
+    const currentValue = firstOperand || 0;
+    const result = performCalculation[operator](currentValue, inputValue);
+
+    calculator.displayValue = String(result);
+    calculator.firstOperand = result;
+  }
+
+  calculator.waitingForSecondOperand = true;
+  calculator.operator = nextOperator;
+}
+
+const performCalculation = {
+  '/': (firstOperand, secondOperand) => firstOperand / secondOperand,
+
+  '*': (firstOperand, secondOperand) => firstOperand * secondOperand,
+
+  '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
+
+  '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
+
+  '=': (firstOperand, secondOperand) => secondOperand
+};
+
+function resetCalculator() {
+  calculator.displayValue = '0';
+  calculator.firstOperand = null;
+  calculator.waitingForSecondOperand = false;
+  calculator.operator = null;
+}
+
+function updateDisplay() {
+  const display = document.querySelector('.calculator-screen');
+  display.value = calculator.displayValue;
+}
+
+updateDisplay();
+
+const keys = document.querySelector('.calculator-keys');
+keys.addEventListener('click', (event) => {
+  const { target } = event;
+  if (!target.matches('button')) {
+    return;
+  }
+
+  if (target.classList.contains('operator')) {
+    handleOperator(target.value);
+		updateDisplay();
+    return;
+  }
+
+  if (target.classList.contains('decimal')) {
+    inputDecimal(target.value);
+		updateDisplay();
+    return;
+  }
+
+  if (target.classList.contains('all-clear')) {
+    resetCalculator();
+		updateDisplay();
+    return;
+  }
+
+  inputDigit(target.value);
+  updateDisplay();
+});
+    
+    
+    </script>
+
+
+    <div class="calculator card">
+
+        <input type="text" class="calculator-screen z-depth-1" value="" disabled />
+    
+        <div class="calculator-keys">
+    
+          <button type="button" class="operator btn btn-info" value="+">+</button>
+          <button type="button" class="operator btn btn-info" value="-">-</button>
+          <button type="button" class="operator btn btn-info" value="*">&times;</button>
+          <button type="button" class="operator btn btn-info" value="/">&divide;</button>
+    
+          <button type="button" value="7" class="btn btn-light waves-effect">7</button>
+          <button type="button" value="8" class="btn btn-light waves-effect">8</button>
+          <button type="button" value="9" class="btn btn-light waves-effect">9</button>
+    
+    
+          <button type="button" value="4" class="btn btn-light waves-effect">4</button>
+          <button type="button" value="5" class="btn btn-light waves-effect">5</button>
+          <button type="button" value="6" class="btn btn-light waves-effect">6</button>
+    
+    
+          <button type="button" value="1" class="btn btn-light waves-effect">1</button>
+          <button type="button" value="2" class="btn btn-light waves-effect">2</button>
+          <button type="button" value="3" class="btn btn-light waves-effect">3</button>
+    
+    
+          <button type="button" value="0" class="btn btn-light waves-effect">0</button>
+          <button type="button" class="decimal function btn btn-secondary" value=".">.</button>
+          <button type="button" class="all-clear function btn btn-danger btn-sm" value="all-clear">AC</button>
+    
+          <button type="button" class="equal-sign operator btn btn-default" value="=">=</button>
+
+
+        </div>
+      </div>
+
+
+      <br/>
+      <br/>
+      </br>
+      <div class="body-content">
+          <br/>
+          <hr/>
+          <footer>
+              <p>© 2019</p>
+          </footer>
+      </div>
+
+
+
+</body>
+</body>
+</html>

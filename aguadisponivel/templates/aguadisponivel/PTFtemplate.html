@@ -1,0 +1,69 @@
+{% extends "aguadisponivel/layout.html" %}
+{% block head %}
+<title>Agua disponivel</title>
+
+{% load static %}
+<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet"  href="{% static 'aguadisponivel/simples.css' %}"/>
+{% endblock %}
+{% block content %}
+
+<div class="form-style-8" id="prim" style="clear: both" >
+        
+    <span> Aqui você verá o calculo das PTF's</span><br/>
+    <span>ELas serão calculadas com base nos parametros de Van Genuchten.</span><br/>
+    <span>Oliveira et al,2002.</span><br/>
+    <span> Barros et al.</span><br/>
+    <span> Tomasella et al.</span><br/>
+    <span>OBS: É obrigatorio preencher os dados marcados com '*'</span><br/>
+</div>
+    
+    <div id="fundo" class="form-style-8" >
+    <form action="." method="POST"> 
+        {% csrf_token %}
+      
+        {{form}}
+
+        <input type="submit" class="btn btn-default" value="Calcular">
+      
+        
+    </form>
+    </div>
+    {% if oliv == 'Na' %}
+
+    {%elif oliv == ''%}
+    <div class="form-style-8" id="grand" style="clear: both" >
+        
+        <span> valores inconsistentes, Favor corrigir !</span>
+</div>
+    {%else%}
+    <div class="form-style-8" id="seg" style="clear: both" >
+        
+        <span> Calculo das PTF's</span><br/><br/>
+        <span> Barros: Alpha = {{b_alpha}}; N = {{b_n}}; Theta R = {{b_thetar}}; Theta S = {{b_thetas}} </span><br/>
+        <span> AD 0.01m³/m³ = {{b_zu}}; AD 0.033m³/m³ = {{b_tt}}; AD 1.5m³/m³ = {{b_pc}} </span><br/>
+        <span>Agua disponivel = {{b_ad}}</span><br/><br/>
+        <span></span><br/>
+        <span>Oliveira: AD = {{oliv}}</span><br/><br/>
+        <span>Tomasella: Alpha = {{t_alpha}}; N = {{t_n}}; Theta R = {{t_thetar}}; Theta S = {{t_thetas}} </span><br/>
+        <span> AD 0.01m³/m³ = {{t_zu}}; AD 0.033m³/m³ = {{t_tt}}; AD 1.5m³/m³ = {{t_pc}} </span><br/>
+        <span>Agua disponivel = {{t_ad}}</span><br/>
+        <span></span><br/>
+    {%endif%}
+
+</div>
+
+
+
+    <script  type="text/javascript">
+
+        
+            
+        function adjust_textarea(h) {
+            h.style.height = "20px";
+            h.style.height = (h.scrollHeight)+"px";
+        }        
+    </script>
+
+
+{% endblock %}

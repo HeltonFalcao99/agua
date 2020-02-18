@@ -1,0 +1,45 @@
+{% extends "aguadisponivel/layout.html" %}
+{% block head %}
+<title>Calculo de PFT por meio de tabela .xlsx</title>
+{% load static %}
+<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet"  href="{% static 'aguadisponivel/simples.css' %}"/>
+{% endblock %}
+{% block content %}
+
+    
+<div class="form-style-8" id="prim" >
+        
+    <span>Aqui você vai inserir um arquivo excel.xlxs. </span><br/>
+    <span>O arquivo deve seguir o modelo do arquivo disponibilizado abaixo e </span><br/>
+    <span>para edita-lo é nescessario clicar em "habilitar edicao".</span><br/>
+    <span>Não altere a primeira linha do modelo, apenas preencha sem acentos ou espaços e</span><br/>
+    <span>caso tenha um aquivo pronto adpte-o para ficar nos moldes corretos.</span><br/>
+    <span>Tenha em mente que a primeira linha não será lida e Após a clicar no botão a pagina vai comecar</span><br/>
+    <span>a calcular e pode demorar alguns segundos para iniciar o download dependendo do tamanho do arquivo.</span><br/>
+    <span>O download vai conter um arquivo excel.csv com todos os calculos de PTF'f disponiveis</span><br/>
+    <span>OBS: É obrigatorio preencher os dados marcados com '*'</span><br/>
+    <br/>
+    <br/>
+    <spam>Arquivo de exemplo:</span><br/>
+    {%load static%}
+    <a href="{% static '\aguadisponivel\EXEMPLO.xlsx' %}" class="btn btn-secondary px-4 py-2 btn-sm">Download</a> 
+
+</div>
+
+    <div id="fundo" class="form-style-8" >
+        <form action="{% url 'aguadisponivel:excel' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file"
+                   title="Upload excel file"
+                   name="tabela"
+                   style="border: 1px solid black; padding: 5px;"
+                   required="required">
+            <p>
+            <input type="submit" value="Upload">
+        </form>
+    </div>
+
+        <hr>
+
+{%endblock%}

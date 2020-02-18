@@ -1,0 +1,80 @@
+.message {
+    font-weight: 600;
+    color: blue;
+}
+.navbar {
+    background-color: #007a33;
+    font-size: 1em;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    padding: 8px 5px 8px 5px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: inherit;
+}
+.navbar a:hover {
+    background-color: #003087;
+  }
+.navbar-brand {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.navbar-item {
+    font-variant: small-caps;
+    margin-left: 30px;
+}
+
+.body-content {
+    padding: 5px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+input[name=message] {
+    width: 80%;
+}
+.message_list th,td {
+    text-align: left;
+    padding-right: 15px;
+}
+input[type=text]{
+
+    text-align: center;
+
+
+}
+body,div{
+    background-image: url("/aguadisponivel/img/fundo.jpg");
+    background-repeat: no-repeat;
+}
+button{
+
+    width: 72px;    
+
+    height: 35px;
+
+    text-align: center;
+
+    background-color: whitesmoke;
+
+    border-radius: 15px;
+
+    border: 1px solid darkgray;
+
+    
+  }
+label, text, textarea{
+
+    font-size: 21px;
+   
+    text-align: center;
+
+    color: black;
+
+    background: springgreen;
+
+
+}
+

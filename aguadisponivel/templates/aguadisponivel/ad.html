@@ -1,0 +1,69 @@
+{% extends "aguadisponivel/layout.html" %}
+{% block title %}
+    Agua Disponivel
+{% endblock %}
+{% block content %}
+  
+    <script  type="text/javascript">
+    
+    function ad() {
+        var ad_solo= document.getElementById("ad_solo").value;
+        agregado= document.getElementById("agregado").value;
+        var quantidade= document.getElementById("quantidade").value;
+        var ad=null
+        if(agregado == "" && ad_solo != "" && quantidade != ""){
+             ad =  ([parseFloat(ad_solo) * parseFloat(quantidade)]/100); 
+             alert("Agua disponivel  é " + ad);
+        }
+        else if(ad_solo != "" && agregado != "" && quantidade != ""){
+            ad =  [[[parseFloat(ad_solo) + parseFloat(agregado)]/2]  * parseFloat(quantidade)] /100; 
+            alert("Agua disponivel  é " + ad);
+        }
+        else if((agregado == "" && ad_solo == "" && quantidade == "") || (agregado != "" && ad_solo == "" && quantidade == "") ){
+            alert("Entrada invalida !!!");
+        }
+
+    } 
+
+
+    </script>
+
+<div class="container">
+<div class="row">
+<div class="col-sm-4">
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="col-sm-4">
+        <label>Ad solo:</label>
+    </div>
+    <div class="col-sm-4">
+        <input id="ad_solo"  type="text"/>
+       
+    </div>
+    <div class="col-sm-4"></div>
+        <label>Agregado: </label>
+    <div class="col-sm-4"></div>
+        <input id="agregado" type="text"/>
+        <br/>
+        <br/>
+    <div class="col-sm-4"></div>
+        <label>Quantidade: </label>
+    <div class="col-sm-4"></div>
+        <input  id="quantidade" type="text"/>
+        <br/>
+        <br/>
+        <br/>
+    </div>
+    <div class="col-sm-4"></div>
+        <button id="calcular" onclick="ad()">Calcular:</button>
+        <br/>
+        <br/>
+    </div>
+
+</form>
+</div>
+</div>
+</div>
+
+
+{% endblock %}
