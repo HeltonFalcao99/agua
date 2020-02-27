@@ -56,6 +56,11 @@
 	text-shadow: #003087;
 	font-size: 1.5em ;
 }
+.explicacao_img{
+	text-align: center;
+	margin: 50px auto;
+
+}
 body{
 
 	background:  url(fundo.jpg) no-repeat;
