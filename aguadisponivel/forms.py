@@ -7,18 +7,14 @@ class UsuarioForm(forms.ModelForm):
         fields = ["ad_solo", "agregado", "quantidade"]
 """
 
+
 class PTFform(forms.ModelForm):
     class Meta:
         model = PTFdados
-        fields = [ "SBICS", "OLD", "LAT", "LON", "MUN", "GEOCOD", "T_ARE", "AGRO", "AFIN", "SILT", "ARG", "SOLO", "C_ORG"]
-
-        
-
-
-    
+        fields = ["SBICS", "OLD", "LAT", "LON", "MUN", "GEOCOD",
+                  "T_ARE", "AGRO", "AFIN", "SILT", "ARG", "SOLO", "C_ORG"]
 
 
-
-
-
-
+class Escolha(forms.Form):
+    class Meta:
+        escolha = forms.CharField(max_length=30)

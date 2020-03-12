@@ -1,0 +1,80 @@
+{% extends "aguadisponivel/layout.html" %}
+{% block head %}
+<title>Agua Disponivel</title>
+{% load static %}
+
+
+
+{% endblock %}
+{% block content %}
+
+<div class="form-style-8" id="introducao" style="clear: both" >
+        
+    <span>Aqui você verá o calculo das PTF's</span></br>
+    <span>Elas serão calculadas com base nos parametros de Van Genuchten.</span></br></br>
+    <span>Oliveira et al,2002.</span></br>
+    <span> Barros et al.</span></br>
+    <span> Tomasella et al.</span>
+    <p></p>
+</div>
+
+
+<div id="fundo" class="form-style-8" >
+ <form action="." method="POST"  id="esco">
+  {% csrf_token %}
+
+  <input type="radio" id="ct" name="escolha" value="ct">
+  <label for="ct">Classes Texturais</label><br>
+  <input type="radio" id="asa" name="escolha" value="asa">
+  <label for="asa">Areia, Silt, Argila</label><br>
+  <input type="radio" id="asad" name="escolha" value="asad">
+  <label for="asad">Areia, Silt, Argila e Densidade</label><br>
+  <input type="radio" id="asadtt" name="escolha" value="asadtt">
+  <label for="asadtt">Areia, Silt, Argila, Densidade e AD 33kPa (TH33)</label><br>
+  <input type="radio" id="asadpc" name="escolha" value="asadpc">
+  <label for="asadpc">Areia, Silt, Argila e Densidade e AD 1500kPa (TH1500)</label><br>
+  <input type="submit" value="Submit">
+
+
+
+</form>
+</div>
+</br>
+<label for="MUN">Municipio</label></br>
+    <input type="text" id="MUN" name="MUN" ></br>
+{% if escolha == "ct" %}
+{% comment %} 
+<form action="." method="POST">
+
+  <label for="tpsolo">Tipo de solo:</label></br>
+  <select size="1" id="tpsolo">
+  <option>1dfnd</option>
+  <option>2gfshh</option>
+  </select>
+  
+  <label>Classes Texturais</label>
+  <input type="radio" id="are" name="classe" value="are">
+  <label for="are">Arenoso</label><br>
+  <input type="radio" id="arg" name="classe" value="arg">
+  <label for="arg">Argiloso</label><br>
+
+  
+  <input type="submit" value="Submit">
+
+
+</form>
+ {% endcomment %}
+
+
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

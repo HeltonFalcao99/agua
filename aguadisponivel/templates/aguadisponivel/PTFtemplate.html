@@ -5,20 +5,209 @@
 {% load static %}
 <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet"  href="{% static 'aguadisponivel/simples.css' %}"/>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<style>canvas {-moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;}</style>
+
 {% endblock %}
 {% block content %}
 
-<div class="form-style-8" id="prim" style="clear: both" >
-        
-    <span> Aqui você verá o calculo das PTF's</span><br/>
-    <span>ELas serão calculadas com base nos parametros de Van Genuchten.</span><br/>
-    <span>Oliveira et al,2002.</span><br/>
-    <span> Barros et al.</span><br/>
-    <span> Tomasella et al.</span><br/>
-    <span>OBS: É obrigatorio preencher os dados marcados com '*'</span><br/>
+
+{% comment %} 	<canvas class="form-style-8" id="canvas"></canvas>
+	
+
+	<script>
+		var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		var config = {
+			type: 'line',
+			data: {
+				labels: ['1', '33', '1500'],
+				datasets: [{
+					label: 'My dataset',
+					fill: false,
+					backgroundColor: window.chartColors.blue,
+					borderColor: window.chartColors.blue,
+					data: [	19, 36, 49 ],
+				}]
+			},
+			options: {
+				responsive: true,
+				title: {
+					display: true,
+					text: 'Chart.js Line Chart'
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: false,
+				},
+				hover: {
+					mode: 'nearest',
+					intersect: true
+				},
+				scales: {
+					xAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Month'
+						}
+					}],
+					yAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Value'
+						}
+					}]
+				}
+			}
+		};
+
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myLine = new Chart(ctx, config);
+		};
+
+		document.getElementById('randomizeData').addEventListener('click', function() {
+			config.data.datasets.forEach(function(dataset) {
+				dataset.data = dataset.data.map(function() {
+					return randomScalingFactor();
+				});
+
+			});
+
+			window.myLine.update();
+		});
+
+		var colorNames = Object.keys(window.chartColors);
+		document.getElementById('addDataset').addEventListener('click', function() {
+			var colorName = colorNames[config.data.datasets.length % colorNames.length];
+			var newColor = window.chartColors[colorName];
+			var newDataset = {
+				label: 'Dataset ' + config.data.datasets.length,
+				backgroundColor: newColor,
+				borderColor: newColor,
+				data: [],
+				fill: false
+			};
+
+			for (var index = 0; index < config.data.labels.length; ++index) {
+				newDataset.data.push(randomScalingFactor());
+			}
+
+			config.data.datasets.push(newDataset);
+			window.myLine.update();
+		});
+
+		document.getElementById('addData').addEventListener('click', function() {
+			if (config.data.datasets.length > 0) {
+				var month = MONTHS[config.data.labels.length % MONTHS.length];
+				config.data.labels.push(month);
+
+				config.data.datasets.forEach(function(dataset) {
+					dataset.data.push(randomScalingFactor());
+				});
+
+				window.myLine.update();
+			}
+		});
+
+		document.getElementById('removeDataset').addEventListener('click', function() {
+			config.data.datasets.splice(0, 1);
+			window.myLine.update();
+		});
+
+		document.getElementById('removeData').addEventListener('click', function() {
+			config.data.labels.splice(-1, 1); // remove the label first
+
+			config.data.datasets.forEach(function(dataset) {
+				dataset.data.pop();
+			});
+
+			window.myLine.update();
+		});
+	</script> {% endcomment %}
+
+
+
+
+
+{% comment %} 
+<canvas class="form-style-8"  id="myChart"></canvas>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['1', '33', '1500'],
+        datasets: [{
+            label: 'força da agua',
+            data: [12, 19, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script> {% endcomment %}
+
+{% if t_ad != 'Na' %}
+<div class="form-style-8" id="graficos">
+<canvas id="grafico" ></canvas>
 </div>
+<script>
+    var grafico = document.getElementById('grafico').getContext('2d');
+	var z = {{t_thetar}}+ (({{t_thetas}}-{{t_thetar}}) / ((1+({{t_alpha}}*0)**{{t_n}})**(1-(1/{{t_n}}))))
+	z = z.toFixed(3)
+	var cem= {{t_thetar}}+ (({{t_thetas}}-{{t_thetar}}) / ((1+({{t_alpha}}*100)**{{t_n}})**(1-(1/{{t_n}}))))
+	cem= cem.toFixed(3)
+	var duz= {{t_thetar}}+ (({{t_thetas}}-{{t_thetar}}) / ((1+({{t_alpha}}*200)**{{t_n}})**(1-(1/{{t_n}}))))
+	duz= duz.toFixed(3)
+	var trez= {{t_thetar}}+ (({{t_thetas}}-{{t_thetar}}) / ((1+({{t_alpha}}*300)**{{t_n}})**(1-(1/{{t_n}}))))
+	trez= trez.toFixed(3)
+	var quinhentos = {{t_thetar}}+ (({{t_thetas}}-{{t_thetar}}) / ((1+({{t_alpha}}*500)**{{t_n}})**(1-(1/{{t_n}}))))
+	quinhentos= quinhentos.toFixed(3)
+	var setec= {{t_thetar}}+ (({{t_thetas}}-{{t_thetar}}) / ((1+({{t_alpha}}*700)**{{t_n}})**(1-(1/{{t_n}}))))
+	setec= setec.toFixed(3)
+	var oitoc={{t_thetar}}+ (({{t_thetas}}-{{t_thetar}}) / ((1+({{t_alpha}}*800)**{{t_n}})**(1-(1/{{t_n}}))))
+	oitoc= oitoc.toFixed(3)
+	var mil = {{t_thetar}}+ (({{t_thetas}}-{{t_thetar}}) / ((1+({{t_alpha}}*1000)**{{t_n}})**(1-(1/{{t_n}}))))
+	mil = mil.toFixed(3)
+	var milduz= {{t_thetar}}+ (({{t_thetas}}-{{t_thetar}}) / ((1+({{t_alpha}}*1200)**{{t_n}})**(1-(1/{{t_n}}))))
+	milduz= milduz.toFixed(3)
+	var miltre= {{t_thetar}}+ (({{t_thetas}}-{{t_thetar}}) / ((1+({{t_alpha}}*1300)**{{t_n}})**(1-(1/{{t_n}}))))
+	miltre= miltre.toFixed(3)
+	var milquat=  {{t_thetar}}+ (({{t_thetas}}-{{t_thetar}}) / ((1+({{t_alpha}}*1400)**{{t_n}})**(1-(1/{{t_n}}))))
+	milquat = milquat.toFixed(3)
     
-    <div id="fundo" class="form-style-8" >
+    var chart = new Chart(grafico, { type: 'line',data:{ labels: [0, '1', '33','100','200', '300','500', '700', '800', '1000','1200', '1300', '1400', '1500'], datasets:[{ data: [ z, {{t_zu}} , {{t_tt}}, cem, duz, trez,quinhentos, setec, oitoc, mil, milduz, miltre, milquat, {{t_pc}} ] }] }, options: {maintainAspectRatio: false, scales: {yAxes:[{ticks:{beginAtZero: true}}],xAxes:[{ticks:{beginAtZero: true}}]}}});
+
+	  
+
+
+
+</script>
+{% endif %}
+
+
+<div id="fundo" class="form-style-8" >
     <form action="." method="POST"> 
         {% csrf_token %}
       
@@ -28,30 +217,72 @@
       
         
     </form>
-    </div>
+</div>
+
+
     {% if oliv == 'Na' %}
+	<div class="form-style-8" id="intro" >
+        
+    <span>Aqui você verá o calculo das PTF's</span></br>
+    <span>Elas serão calculadas com base nos parametros de Van Genuchten.</span></br></br>
+    <span>Oliveira et al,2002.</span></br>
+    <span> Barros et al.</span></br>
+    <span> Tomasella et al.</span>
+    <p>OBS: É obrigatorio preencher os dados marcados com '*'</p>
+	</div>
+    
 
     {%elif oliv == ''%}
-    <div class="form-style-8" id="grand" style="clear: both" >
+	<div id="direita">
+	<div class="form-style-8" id="intro" >
+        
+    <span>Aqui você verá o calculo das PTF's</span></br>
+    <span>Elas serão calculadas com base nos parametros de Van Genuchten.</span></br></br>
+    <span>Oliveira et al,2002.</span></br>
+    <span> Barros et al.</span></br>
+    <span> Tomasella et al.</span>
+    <p>OBS: É obrigatorio preencher os dados marcados com '*'</p>
+	</div>
+    
+
+    <div class="form-style-8" id="grand"  >
         
         <span> valores inconsistentes, Favor corrigir !</span>
-</div>
+	</div>
+
+	</div>
     {%else%}
-    <div class="form-style-8" id="seg"  >
+
+	<div id="direita" >
+	<div class="form-style-8" id="intro" >
         
-        <span> Calculo das PTF's</span><br/><br/>
-        <span> Barros: Alpha = {{b_alpha}}; N = {{b_n}}; Theta R = {{b_thetar}}; Theta S = {{b_thetas}} </span><br/>
-        <span> AD 0.01m³/m³ = {{b_zu}}; AD 0.033m³/m³ = {{b_tt}}; AD 1.5m³/m³ = {{b_pc}} </span><br/>
-        <span>Agua disponivel = {{b_ad}}</span><br/><br/>
-        <span></span><br/>
-        <span>Oliveira: AD = {{oliv}}</span><br/><br/>
-        <span>Tomasella: Alpha = {{t_alpha}}; N = {{t_n}}; Theta R = {{t_thetar}}; Theta S = {{t_thetas}} </span><br/>
-        <span> AD 0.01m³/m³ = {{t_zu}}; AD 0.033m³/m³ = {{t_tt}}; AD 1.5m³/m³ = {{t_pc}} </span><br/>
-        <span>Agua disponivel = {{t_ad}}</span><br/>
-        <span></span><br/>
+    <span>Aqui você verá o calculo das PTF's</span></br>
+    <span>Elas serão calculadas com base nos parametros de Van Genuchten.</span></br></br>
+    <span>Oliveira et al,2002.</span></br>
+    <span> Barros et al.</span></br>
+    <span> Tomasella et al.</span>
+    <p>OBS: É obrigatorio preencher os dados marcados com '*'</p>
+	</div>
+
+    <div class="form-style-8" id="resposta">
+        
+        <b><p> Calculo das PTF's</p><br/>
+        <p> Barros: Alpha = {{b_alpha}}; N = {{b_n}}; Theta R = {{b_thetar}}; Theta S = {{b_thetas}} </p>
+        <p> AD 0.01m³/m³ = {{b_zu}}; AD 0.033m³/m³ = {{b_tt}}; AD 1.5m³/m³ = {{b_pc}} </p>
+        <p>Agua disponivel = {{b_ad}}</p>
+        <br/>
+        <p>Oliveira: AD = {{oliv}}</p><br/>
+        <p>Tomasella: Alpha = {{t_alpha}}; N = {{t_n}}; Theta R = {{t_thetar}}; Theta S = {{t_thetas}} </p>
+        <p> AD 0.01m³/m³ = {{t_zu}}; AD 0.033m³/m³ = {{t_tt}}; AD 1.5m³/m³ = {{t_pc}} </p>
+        <p>Agua disponivel = {{t_ad}}</p>
+        <br/></b>
+	</div>
+
+	</div>
+	
     {%endif%}
 
-</div>
+
 
 
 

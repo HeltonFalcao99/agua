@@ -1,3 +1,5 @@
+import decimal
+from decimal import *
 
 
 class Oliveira:
@@ -6,33 +8,41 @@ class Oliveira:
         if(T_ARE == None or SILT == None or ARG == None or SOLO == None):
             retorno = None
         else:
-            retorno = ((-0.000021 * T_ARE) + (0.000203 * SILT ) + (0.000054 * ARG ) + (0.021656 * SOLO))
+            retorno = ((-0.000021 * T_ARE) + (0.000203 * SILT) +
+                       (0.000054 * ARG) + (0.021656 * SOLO))
             retorno = round(retorno, 3)
         return retorno
 
+
 class Barros:
-    #alfa de barros
+    # alfa de barros
     def bar_alpha(T_ARE, ARG, SOLO):
-        A1 = 0.8118 +( 0.8861 * ( T_ARE /1000 ) ) +(-1.1907 * ( ARG / 1000 )) +(-0.001514 * ( SOLO / 0.001 ) )
+        A1 = 0.8118 + (0.8861 * (T_ARE / 1000)) + (-1.1907 *
+                                                   (ARG / 1000)) + (-0.001514 * (SOLO / 0.001))
         ALPHA = 10**A1
         ALPHA = round(ALPHA, 3)
         return ALPHA
-    #n de barros
+    # n de barros
+
     def bar_n(T_ARE, SILT, M_ORG):
-        N = (1.1527 + (0.7427*(T_ARE/1000)) + (0.4135*(SILT/1000)) + (-5.5341*(M_ORG/1000)))
-        N = round(N, 3)       
+        N = (1.1527 + (0.7427*(T_ARE/1000)) +
+             (0.4135*(SILT/1000)) + (-5.5341*(M_ORG/1000)))
+        N = round(N, 3)
         return N
-    #theta r de barros
-    def bar_thetar(T_ARE, ARG, M_ORG ,SOLO):
-        THETAR = 0.0858 + (-0.1671*(T_ARE/1000)) + (0.3516*(ARG/1000)) + (1.1846*(M_ORG*0.001)) + (0.000029*(SOLO/0.001))      
+    # theta r de barros
+
+    def bar_thetar(T_ARE, ARG, M_ORG, SOLO):
+        THETAR = 0.0858 + (-0.1671*(T_ARE/1000)) + (0.3516*(ARG/1000)) + \
+            (1.1846*(M_ORG*0.001)) + (0.000029*(SOLO/0.001))
         THETAR = round(THETAR, 3)
         return THETAR
-    #theta s de barros
+    # theta s de barros
+
     def bar_thetas(SOLO):
-        THETAS = 1 + (-0.00037 *(SOLO/0.001))
+        THETAS = 1 + (-0.00037 * (SOLO/0.001))
         THETAS = round(THETAS, 3)
         return THETAS
-        
+
     def bar_zu(alpha, n, thetar, thetas):
         B_ZU = thetar + ((thetas-thetar) / ((1+(alpha*10)**n)**(1-(1/n))))
         B_ZU = round(B_ZU, 3)
@@ -49,33 +59,37 @@ class Barros:
         return B_PC
 
     def bar_ad(tt, pc):
-        AD =  tt - pc
+        AD = tt - pc
         AD = round(AD, 3)
-        return AD 
-    
+        return AD
+
 
 class Tomasella:
 
     def tom_thetas(agro, afin, silt, solo, c_org):
-        ThetaS  = (91.6203 - (30.0046 * solo ) + (1.5925*c_org) + (0.0022*agro*silt) -(0.0036 * agro * afin ) -(0.0018*agro*agro) - (0.001*afin*afin) )/100
+        ThetaS = (91.6203 - (30.0046 * solo) + (1.5925*c_org) + (0.0022*agro*silt) -
+                  (0.0036 * agro * afin) - (0.0018*agro*agro) - (0.001*afin*afin))/100
         ThetaS = round(ThetaS, 3)
         return ThetaS
-    
+
     def tom_thetar(agro, afin, silt, solo, arg):
-        ThetaR = (23.3867 + (0.1103*arg) + (-4.7949*solo) + (0.0047*silt*arg)+(-0.0027*(agro**2)) + (-0.0022 * (afin**2)) + (-0.0048*(silt**2)) )/100
+        ThetaR = (23.3867 + (0.1103*arg) + (-4.7949*solo) + (0.0047*silt*arg) +
+                  (-0.0027*(agro**2)) + (-0.0022 * (afin**2)) + (-0.0048*(silt**2)))/100
         ThetaR = round(ThetaR, 3)
         return ThetaR
 
     def tom_N(agro, afin, silt, arg):
-        N =  (( 168.8617 + (-0.0258*agro*silt) + (-0.0261*afin*arg) + (0.0093*(afin**2)) + (-0.0077 * (silt**2)))/100)
+        N = ((168.8617 + (-0.0258*agro*silt) + (-0.0261*afin*arg) +
+              (0.0093*(afin**2)) + (-0.0077 * (silt**2)))/100)
         N = round(N, 3)
         return N
 
     def tom_alpha(agro, afin, silt, solo, arg):
-        Alpha = (2.718281**(( 183.2601 + (-2.556*silt) + ( -0.1329 * arg) + (-247.4904*solo) + (-0.0189*agro*afin) + (0.1177*agro*silt) + (0.0517*afin*arg) + (0.0617*(agro**2)) )/100))
-        Alpha = round(Alpha, 3)
-        return Alpha
-    
+        alpha = (2.71828**((183.2601 + (-2.556*silt) + (-0.1329 * arg) + (-247.4904*solo) +
+                            (-0.0189*agro*afin) + (0.1177*agro*silt) + (0.0517*afin*arg) + (0.0617*(agro**2)))/100))
+        alpha = round(alpha, 3)
+        return alpha
+
     def tom_zu(alpha, n, thetar, thetas):
         T_ZU = thetar + ((thetas-thetar) / ((1+(alpha*10)**n)**(1-(1/n))))
         T_ZU = round(T_ZU, 3)

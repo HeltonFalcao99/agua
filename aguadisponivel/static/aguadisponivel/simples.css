@@ -24,37 +24,62 @@
 }
 .form-style-8{
 	font-family: 'Open Sans Condensed', arial, sans;
-	width: 35%;
+	width: 40%;
 	padding: 30px;
-	margin: 50px auto;
-	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
-	-moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
-	-webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
-	clear: both;
 	font-size: 1.5em;
 	font-family: Arial;
-	background-color: white;
+	background-color: #D4D0C8;
+	margin: 50px auto;
+	border-style: ridge;
+	border-width: 5px;
+	border-color: #003087;
+	text-decoration: underline;
+	
 }
-#prim{
+#graficos{
+	width: 800px;
+	height: 700px;
+
+}         
+#intro{
 	font-size: 1.5em;
 	font-family: 'Lucida Sans';
-	width: 50%;
-	background-color: white;
+	width: 40%;
+	margin-left: 50%;
+	
 }
-#seg{
+#fundo{
+	float: left; 
+	width: 40%;
+	margin-left: 3%;
+
+}
+#direita{
+	margin-left: 50px;
+
+}
+#resposta{
 	font-size: 1.5em;
 	font-family: 'Lucida Sans';
-	width: 50%;
-	background-color: white;
-}
+	font-weight: bolder;
+	margin-left: 50%;
+	width: 30%;
+	margin-right: 10px;
+}	
 #grand{
 	font-family: Arial;
 	font-size: 5em;
+	margin-left: 50%;
+
+	
 }
 .embaixo{
 	color: aliceblue;
 	text-shadow: #003087;
-	font-size: 1.5em ;
+	font-size: 1.5em;
+	width: 100%;
+	clear: both;
+
 }
 .explicacao_img{
 	text-align: center;
@@ -84,19 +109,21 @@ body{
 .form-style-8 textarea,
 .form-style-8 select 
 {
+	margin-top: 7px ;
+	border-color: grey;
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	outline: none;
 	display: block;
-	width: 100%;
-	padding: 7px;
-	border: none;
-	border-bottom: 1px solid #ddd;
-	background: transparent;
+	width: 50%;
+	padding: 15px;
+	border: 5px groove;
+	border-bottom: 1px solid whitesmoke;
+	background: whitesmoke;
 	margin-bottom: 10px;
-	font: 16px Arial, Helvetica, sans-serif;
-	height: 45px;
+	font: 5px Arial, Helvetica, sans-serif;
+	height: 20px;
 }
 .form-style-8 textarea{
 	resize:none;
