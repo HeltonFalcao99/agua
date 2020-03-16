@@ -7,7 +7,7 @@ from .models import PTFdados
 from .forms import PTFform, Escolha
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from os import path
-from .PTF import Oliveira, Barros, Tomasella
+from .PTF import Oliveira, Barros, Tomasella, BarrosSimplificada
 import csv
 import mimetypes
 import matplotlib.pyplot as plt
@@ -220,7 +220,7 @@ def excel(request):
 def PTFview(request):
     form = PTFform(request.POST)
     if "GET" == request.method:
-        oliv = 'Na'
+        oliv = ''
         b_alpha = ''
         b_n = ''
         b_thetar = ''
@@ -236,9 +236,19 @@ def PTFview(request):
         t_tt = ''
         t_pc = ''
         b_ad = ''
+        bs_logalpha = ''
+        bs_alpha = ''
+        bs_n = 'Na'
+        bs_thetar = ''
+        bs_thetas = ''
+        bs_zu = ''
+        bs_tt = ''
+        bs_pc = ''
+        bs_ad = ''
+        escolha = ''
         t_ad = 'Na'
 
-        return render(request, "aguadisponivel/PTFtemplate.html", {'form': form, 'oliv': oliv, 'b_alpha': b_alpha, 'b_n': b_n, 'b_thetar': b_thetar, 'b_thetas': b_thetas, 't_alpha': t_alpha, 't_n': t_n, 't_thetar': t_thetar, 't_thetas': t_thetas, 'b_zu': b_zu, 'b_tt': b_tt, 'b_pc': b_pc, 't_zu': t_zu, 't_tt': t_tt, 't_pc': t_pc, 'b_ad': b_ad, 't_ad': t_ad})
+        return render(request, "aguadisponivel/PTFtemplate.html", {'form': form, 'oliv': oliv, 'b_alpha': b_alpha, 'b_n': b_n, 'b_thetar': b_thetar, 'b_thetas': b_thetas, 'b_zu': b_zu, 'b_tt': b_tt, 'b_pc': b_pc, 'b_ad': b_ad, 'bs_logalpha': bs_logalpha, 'bs_alpha': bs_alpha, 'bs_n': bs_n, 'bs_thetar': bs_thetar, 'bs_thetas': bs_thetas, 'bs_zu': bs_zu, 'bs_tt': bs_tt, 'bs_pc': bs_pc, 'bs_ad': bs_ad, 't_alpha': t_alpha, 't_n': t_n, 't_thetar': t_thetar, 't_thetas': t_thetas, 't_zu': t_zu, 't_tt': t_tt, 't_pc': t_pc, 't_ad': t_ad})
     elif request.method == "POST":
         oliv = ''
         b_alpha = ''
@@ -256,11 +266,22 @@ def PTFview(request):
         t_tt = ''
         t_pc = ''
         b_ad = ''
+        bs_logalpha = ''
+        bs_alpha = ''
+        bs_n = ''
+        bs_thetar = ''
+        bs_thetas = ''
+        bs_zu = ''
+        bs_tt = ''
+        bs_pc = ''
+        bs_ad = ''
+        escolha = ''
         t_ad = 'Na'
 
         if form.is_valid():
 
-            SBICS = form.cleaned_data["SBICS"]
+            escolha = form.cleaned_data["escolha"]
+            SBICS = form.cleaned_data['SBICS']
             OLD = form.cleaned_data["OLD"]
             LAT = form.cleaned_data["LAT"]
             LON = form.cleaned_data["LON"]
@@ -276,75 +297,141 @@ def PTFview(request):
             if(C_ORG != None):
                 M_ORG = (2*C_ORG)
 
+            # caso seja so tipo de solo
+            if(escolha == 'ct'):
+
+                return render(request, "aguadisponivel/PTFtemplate.html", {'form': form, 'oliv': oliv, 'b_alpha': b_alpha, 'b_n': b_n, 'b_thetar': b_thetar, 'b_thetas': b_thetas, 'b_zu': b_zu, 'b_tt': b_tt, 'b_pc': b_pc, 'b_ad': b_ad, 'bs_logalpha': bs_logalpha, 'bs_alpha': bs_alpha, 'bs_n': bs_n, 'bs_thetar': bs_thetar, 'bs_thetas': bs_thetas, 'bs_zu': bs_zu, 'bs_tt': bs_tt, 'bs_pc': bs_pc, 'bs_ad': bs_ad, 't_alpha': t_alpha, 't_n': t_n, 't_thetar': t_thetar, 't_thetas': t_thetas, 't_zu': t_zu, 't_tt': t_tt, 't_pc': t_pc, 't_ad': t_ad})
+
+            elif(escolha == 'asa'):
+                if((ARG + SILT + T_ARE) == 1000):
+
+                    bs_logalpha = BarrosSimplificada.BS_logalpha(ARG)
+                    bs_alpha = BarrosSimplificada.BS_alpha(bs_logalpha)
+                    bs_n = BarrosSimplificada.BS_n(T_ARE, SILT)
+                    bs_thetar = BarrosSimplificada.BS_thetar(T_ARE, ARG)
+                    bs_thetas = BarrosSimplificada.BS_thetas(T_ARE, SILT)
+                    bs_zu = BarrosSimplificada.BS_zu(
+                        bs_alpha, bs_n, bs_thetar, bs_thetas)
+                    bs_tt = BarrosSimplificada.BS_tt(
+                        bs_alpha, bs_n, bs_thetar, bs_thetas)
+                    bs_pc = BarrosSimplificada.BS_pc(
+                        bs_alpha, bs_n, bs_thetar, bs_thetas)
+
+                return render(request, "aguadisponivel/PTFtemplate.html", {'form': form, 'oliv': oliv, 'b_alpha': b_alpha, 'b_n': b_n, 'b_thetar': b_thetar, 'b_thetas': b_thetas, 'b_zu': b_zu, 'b_tt': b_tt, 'b_pc': b_pc, 'b_ad': b_ad, 'bs_logalpha': bs_logalpha, 'bs_alpha': bs_alpha, 'bs_n': bs_n, 'bs_thetar': bs_thetar, 'bs_thetas': bs_thetas, 'bs_zu': bs_zu, 'bs_tt': bs_tt, 'bs_pc': bs_pc, 'bs_ad': bs_ad, 't_alpha': t_alpha, 't_n': t_n, 't_thetar': t_thetar, 't_thetas': t_thetas, 't_zu': t_zu, 't_tt': t_tt, 't_pc': t_pc, 't_ad': t_ad})
+
+            elif(escolha == 'asad'):
+
+                oliv = Oliveira.oliveira(T_ARE, SILT, ARG, SOLO)
+
+                bs_logalpha = BarrosSimplificada.BS_logalpha(ARG)
+                bs_alpha = BarrosSimplificada.BS_alpha(bs_logalpha)
+                bs_n = BarrosSimplificada.BS_n(T_ARE, SILT)
+                bs_thetar = BarrosSimplificada.BS_thetar(T_ARE, ARG)
+                bs_thetas = BarrosSimplificada.BS_thetas(T_ARE, SILT)
+                bs_zu = BarrosSimplificada.BS_zu(
+                    bs_alpha, bs_n, bs_thetar, bs_thetas)
+                bs_tt = BarrosSimplificada.BS_tt(
+                    bs_alpha, bs_n, bs_thetar, bs_thetas)
+                bs_pc = BarrosSimplificada.BS_pc(
+                    bs_alpha, bs_n, bs_thetar, bs_thetas)
+
+                b_alpha = Barros.bar_alpha(T_ARE, ARG, SOLO)
+                b_n = Barros.bar_n(T_ARE, SILT, M_ORG)
+                b_thetar = Barros.bar_thetar(T_ARE, ARG, M_ORG, SOLO)
+                b_thetas = Barros.bar_thetas(SOLO)
+                b_zu = Barros.bar_zu(b_alpha, b_n, b_thetar, b_thetas)
+                b_tt = Barros.bar_tt(b_alpha, b_n, b_thetar, b_thetas)
+                b_pc = Barros.bar_pc(b_alpha, b_n, b_thetar, b_thetas)
+                b_ad = Barros.bar_ad(b_tt, b_pc)
+
+                t_alpha = Tomasella.tom_alpha(
+                    (AGRO/10), (AFIN/10), (SILT/10), SOLO, (ARG/10))
+                t_n = Tomasella.tom_N(
+                    (AGRO/10), (AFIN/10), (SILT/10), (ARG/10))
+                t_thetar = Tomasella.tom_thetar(
+                    (AGRO/10), (AFIN/10), (SILT/10), SOLO, (ARG/10))
+                t_thetas = Tomasella.tom_thetas(
+                    (AGRO/10), (AFIN/10), (SILT/10), SOLO, C_ORG)
+                t_zu = Tomasella.tom_zu(t_alpha, t_n, t_thetar, t_thetas)
+                t_tt = Tomasella.tom_tt(t_alpha, t_n, t_thetar, t_thetas)
+                t_pc = Tomasella.tom_pc(t_alpha, t_n, t_thetar, t_thetas)
+                t_ad = Tomasella.tom_ad(t_tt, t_pc)
+
+                return ''
+
+            elif(escolha == 'assadtt'):
+                return ''
+
+            elif(escolha == 'assadpc'):
+                return ''
+
             # if (T_ARE != None and SILT != None and ARG != None and SOLO != None and C_ORG != None and AGRO != None and AFIN != None and LAT != None and LON != None and MUN != None and GEOCOD != None):
-                # and (T_ARE == (AFIN + AGRO)) and (type(LAT) == float) and (type(LON) == float):
-                if((ARG + SILT + T_ARE) == 1000) and (SOLO <= 2) and (SOLO >= 0.8):
+            # and (T_ARE == (AFIN + AGRO)) and (type(LAT) == float) and (type(LON) == float):
+            if((ARG + SILT + T_ARE) == 1000) and (SOLO <= 2) and (SOLO >= 0.8):
 
-                    dados = PTFdados(SBICS=SBICS, OLD=OLD, LAT=LAT, LON=LON, MUN=MUN, GEOCOD=GEOCOD, T_ARE=T_ARE,
-                                     AGRO=AGRO, AFIN=AFIN, SILT=SILT, ARG=ARG, SOLO=SOLO, C_ORG=C_ORG, M_ORG=M_ORG)
+                oliv = Oliveira.oliveira(T_ARE, SILT, ARG, SOLO)
 
-                    oliv = Oliveira.oliveira(T_ARE, SILT, ARG, SOLO)
-                    b_alpha = Barros.bar_alpha(T_ARE, ARG, SOLO)
-                    b_n = Barros.bar_n(T_ARE, SILT, M_ORG)
-                    b_thetar = Barros.bar_thetar(T_ARE, ARG, M_ORG, SOLO)
-                    b_thetas = Barros.bar_thetas(SOLO)
-                    b_zu = Barros.bar_zu(b_alpha, b_n, b_thetar, b_thetas)
-                    b_tt = Barros.bar_tt(b_alpha, b_n, b_thetar, b_thetas)
-                    b_pc = Barros.bar_pc(b_alpha, b_n, b_thetar, b_thetas)
-                    b_ad = Barros.bar_ad(b_tt, b_pc)
-                    t_alpha = Tomasella.tom_alpha(
-                        (AGRO/10), (AFIN/10), (SILT/10), SOLO, (ARG/10))
-                    t_n = Tomasella.tom_N(
-                        (AGRO/10), (AFIN/10), (SILT/10), (ARG/10))
-                    t_thetar = Tomasella.tom_thetar(
-                        (AGRO/10), (AFIN/10), (SILT/10), SOLO, (ARG/10))
-                    t_thetas = Tomasella.tom_thetas(
-                        (AGRO/10), (AFIN/10), (SILT/10), SOLO, C_ORG)
-                    t_zu = Tomasella.tom_zu(t_alpha, t_n, t_thetar, t_thetas)
-                    t_tt = Tomasella.tom_tt(t_alpha, t_n, t_thetar, t_thetas)
-                    t_pc = Tomasella.tom_pc(t_alpha, t_n, t_thetar, t_thetas)
-                    t_ad = Tomasella.tom_ad(t_tt, t_pc)
+                bs_logalpha = BarrosSimplificada.BS_logalpha(ARG)
+                bs_alpha = BarrosSimplificada.BS_alpha(bs_logalpha)
+                bs_n = BarrosSimplificada.BS_n(T_ARE, SILT)
+                bs_thetar = BarrosSimplificada.BS_thetar(T_ARE, ARG)
+                bs_thetas = BarrosSimplificada.BS_thetas(T_ARE, SILT)
+                bs_zu = BarrosSimplificada.BS_zu(
+                    bs_alpha, bs_n, bs_thetar, bs_thetas)
+                bs_tt = BarrosSimplificada.BS_tt(
+                    bs_alpha, bs_n, bs_thetar, bs_thetas)
+                bs_pc = BarrosSimplificada.BS_pc(
+                    bs_alpha, bs_n, bs_thetar, bs_thetas)
 
-                    dados.oliv = oliv
-                    dados.B_ZU = b_zu
-                    dados.B_TT = b_tt
-                    dados.B_PC = b_pc
-                    dados.B_ALPHA = b_alpha
-                    dados.B_N = b_n
-                    dados.B_THETAS = b_thetas
-                    dados.B_TETHAR = b_thetar
-                    dados.B_AD = b_ad
-                    dados.T_ZU = t_zu
-                    dados.T_TT = t_tt
-                    dados.T_PC = t_pc
-                    dados.T_ALPHA = t_alpha
-                    dados.T_N = t_n
-                    dados.T_THETAR = t_thetar
-                    dados.T_TETHAS = t_thetas
-                    dados.T_AD = t_ad
-                    dados.save()
+                b_alpha = Barros.bar_alpha(T_ARE, ARG, SOLO)
+                b_n = Barros.bar_n(T_ARE, SILT, M_ORG)
+                b_thetar = Barros.bar_thetar(T_ARE, ARG, M_ORG, SOLO)
+                b_thetas = Barros.bar_thetas(SOLO)
+                b_zu = Barros.bar_zu(b_alpha, b_n, b_thetar, b_thetas)
+                b_tt = Barros.bar_tt(b_alpha, b_n, b_thetar, b_thetas)
+                b_pc = Barros.bar_pc(b_alpha, b_n, b_thetar, b_thetas)
+                b_ad = Barros.bar_ad(b_tt, b_pc)
 
-                    oliv = str(oliv)
-                    b_alpha = str(b_alpha)
-                    b_n = str(b_n)
-                    b_thetar = str(b_thetar)
-                    b_thetas = str(b_thetas)
-                    t_alpha = str(t_alpha)
-                    t_n = str(t_n)
-                    t_thetar = str(t_thetar)
-                    t_thetas = str(t_thetas)
-                    b_zu = str(b_zu)
-                    b_tt = str(b_tt)
-                    b_pc = str(b_pc)
-                    t_zu = str(t_zu)
-                    t_tt = str(t_tt)
-                    t_pc = str(t_pc)
-                    b_ad = str(b_ad)
-                    t_ad = str(t_ad)
+                t_alpha = Tomasella.tom_alpha(
+                    (AGRO/10), (AFIN/10), (SILT/10), SOLO, (ARG/10))
+                t_n = Tomasella.tom_N(
+                    (AGRO/10), (AFIN/10), (SILT/10), (ARG/10))
+                t_thetar = Tomasella.tom_thetar(
+                    (AGRO/10), (AFIN/10), (SILT/10), SOLO, (ARG/10))
+                t_thetas = Tomasella.tom_thetas(
+                    (AGRO/10), (AFIN/10), (SILT/10), SOLO, C_ORG)
+                t_zu = Tomasella.tom_zu(t_alpha, t_n, t_thetar, t_thetas)
+                t_tt = Tomasella.tom_tt(t_alpha, t_n, t_thetar, t_thetas)
+                t_pc = Tomasella.tom_pc(t_alpha, t_n, t_thetar, t_thetas)
+                t_ad = Tomasella.tom_ad(t_tt, t_pc)
 
-                    return render(request, "aguadisponivel/PTFtemplate.html", {'form': form, 'oliv': oliv, 'b_alpha': b_alpha, 'b_n': b_n, 'b_thetar': b_thetar, 'b_thetas': b_thetas, 't_alpha': t_alpha, 't_n': t_n, 't_thetar': t_thetar, 't_thetas': t_thetas, 'b_zu': b_zu, 'b_tt': b_tt, 'b_pc': b_pc, 't_zu': t_zu, 't_tt': t_tt, 't_pc': t_pc, 'b_ad': b_ad, 't_ad': t_ad})
+            if((LAT != '' and LON != '') or (MUN != '')):
 
-            return render(request, "aguadisponivel/PTFtemplate.html", {'form': form, 'oliv': oliv, 'b_alpha': b_alpha, 'b_n': b_n, 'b_thetar': b_thetar, 'b_thetas': b_thetas, 't_alpha': t_alpha, 't_n': t_n, 't_thetar': t_thetar, 't_thetas': t_thetas, 'b_zu': b_zu, 'b_tt': b_tt, 'b_pc': b_pc, 't_zu': t_zu, 't_tt': t_tt, 't_pc': t_pc, 'b_ad': b_ad, 't_ad': t_ad})
+                dados = PTFdados(SBICS=SBICS, OLD=OLD, LAT=LAT, LON=LON, MUN=MUN, GEOCOD=GEOCOD, T_ARE=T_ARE,
+                                 AGRO=AGRO, AFIN=AFIN, SILT=SILT, ARG=ARG, SOLO=SOLO, C_ORG=C_ORG, M_ORG=M_ORG)
+                dados = PTFdados(oliv=oliv, B_ZU=b_zu, B_TT=b_tt, B_PC=b_pc, B_ALPHA=b_alpha, B_N=b_n, B_THETAS=b_thetas, B_TETHAR=b_thetar,
+                                 B_AD=b_ad, T_ZU=t_zu, T_TT=t_tt, T_PC=t_pc, T_ALPHA=t_alpha, T_N=t_n, T_THETAR=t_thetar, T_TETHAS=t_thetas, T_AD=t_ad)
+                dados.save()
+
+            oliv = str(oliv)
+            b_alpha = str(b_alpha)
+            b_n = str(b_n)
+            b_thetar = str(b_thetar)
+            b_thetas = str(b_thetas)
+            t_alpha = str(t_alpha)
+            t_n = str(t_n)
+            t_thetar = str(t_thetar)
+            t_thetas = str(t_thetas)
+            b_zu = str(b_zu)
+            b_tt = str(b_tt)
+            b_pc = str(b_pc)
+            t_zu = str(t_zu)
+            t_tt = str(t_tt)
+            t_pc = str(t_pc)
+            b_ad = str(b_ad)
+            t_ad = str(t_ad)
+
+            return render(request, "aguadisponivel/PTFtemplate.html", {'form': form, 'oliv': oliv, 'b_alpha': b_alpha, 'b_n': b_n, 'b_thetar': b_thetar, 'b_thetas': b_thetas, 'b_zu': b_zu, 'b_tt': b_tt, 'b_pc': b_pc, 'b_ad': b_ad, 'bs_logalpha': bs_logalpha, 'bs_alpha': bs_alpha, 'bs_n': bs_n, 'bs_thetar': bs_thetar, 'bs_thetas': bs_thetas, 'bs_zu': bs_zu, 'bs_tt': bs_tt, 'bs_pc': bs_pc, 'bs_ad': bs_ad, 't_alpha': t_alpha, 't_n': t_n, 't_thetar': t_thetar, 't_thetas': t_thetas, 't_zu': t_zu, 't_tt': t_tt, 't_pc': t_pc, 't_ad': t_ad})
 
         else:
             return render(request, "aguadisponivel/home.html")

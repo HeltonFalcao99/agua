@@ -11,10 +11,5 @@ class UsuarioForm(forms.ModelForm):
 class PTFform(forms.ModelForm):
     class Meta:
         model = PTFdados
-        fields = ["SBICS", "OLD", "LAT", "LON", "MUN", "GEOCOD",
+        fields = ["escolha", "SBICS", "OLD", "LAT", "LON", "MUN", "GEOCOD",
                   "T_ARE", "AGRO", "AFIN", "SILT", "ARG", "SOLO", "C_ORG"]
-
-
-class Escolha(forms.Form):
-    class Meta:
-        escolha = forms.CharField(max_length=30)

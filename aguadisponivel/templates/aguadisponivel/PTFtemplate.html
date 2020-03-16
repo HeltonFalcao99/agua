@@ -197,7 +197,7 @@ var myChart = new Chart(ctx, {
 	var milquat=  {{t_thetar}}+ (({{t_thetas}}-{{t_thetar}}) / ((1+({{t_alpha}}*1400)**{{t_n}})**(1-(1/{{t_n}}))))
 	milquat = milquat.toFixed(3)
     
-    var chart = new Chart(grafico, { type: 'line',data:{ labels: [0, '1', '33','100','200', '300','500', '700', '800', '1000','1200', '1300', '1400', '1500'], datasets:[{ data: [ z, {{t_zu}} , {{t_tt}}, cem, duz, trez,quinhentos, setec, oitoc, mil, milduz, miltre, milquat, {{t_pc}} ] }] }, options: {maintainAspectRatio: false, scales: {yAxes:[{ticks:{beginAtZero: true}}],xAxes:[{ticks:{beginAtZero: true}}]}}});
+    var chart = new Chart(grafico, { type: 'line',data:{ labels: [0, '10', '33','100','200', '300','500', '700', '800', '1000','1200', '1300', '1400', '1500'], datasets:[{ data: [ z, {{t_zu}} , {{t_tt}}, cem, duz, trez,quinhentos, setec, oitoc, mil, milduz, miltre, milquat, {{t_pc}} ] }] }, options: {maintainAspectRatio: false, scales: {yAxes:[{ticks:{beginAtZero: true}}],xAxes:[{ticks:{beginAtZero: true}}]}}});
 
 	  
 
@@ -220,7 +220,7 @@ var myChart = new Chart(ctx, {
 </div>
 
 
-    {% if oliv == 'Na' %}
+    {% if bs_n == 'Na' %}
 	<div class="form-style-8" id="intro" >
         
     <span>Aqui você verá o calculo das PTF's</span></br>
@@ -228,11 +228,11 @@ var myChart = new Chart(ctx, {
     <span>Oliveira et al,2002.</span></br>
     <span> Barros et al.</span></br>
     <span> Tomasella et al.</span>
-    <p>OBS: É obrigatorio preencher os dados marcados com '*'</p>
+	</br>
 	</div>
     
 
-    {%elif oliv == ''%}
+    {%elif bs_n == ''%}
 	<div id="direita">
 	<div class="form-style-8" id="intro" >
         
@@ -270,6 +270,10 @@ var myChart = new Chart(ctx, {
         <p> Barros: Alpha = {{b_alpha}}; N = {{b_n}}; Theta R = {{b_thetar}}; Theta S = {{b_thetas}} </p>
         <p> AD 0.01m³/m³ = {{b_zu}}; AD 0.033m³/m³ = {{b_tt}}; AD 1.5m³/m³ = {{b_pc}} </p>
         <p>Agua disponivel = {{b_ad}}</p>
+        <br/>
+		<p> Barros SIMPLIFICADA: Alpha = {{bs_alpha}}; N = {{bs_n}}; Theta R = {{bs_thetar}}; Theta S = {{bs_thetas}} </p>
+        <p> AD 0.01m³/m³ = {{bs_zu}}; AD 0.033m³/m³ = {{bs_tt}}; AD 1.5m³/m³ = {{bs_pc}} </p>
+        <p>Agua disponivel = {{bs_ad}}</p>
         <br/>
         <p>Oliveira: AD = {{oliv}}</p><br/>
         <p>Tomasella: Alpha = {{t_alpha}}; N = {{t_n}}; Theta R = {{t_thetar}}; Theta S = {{t_thetas}} </p>

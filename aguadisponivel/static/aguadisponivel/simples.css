@@ -23,25 +23,28 @@
 	margin-left: 30px;
 }
 .form-style-8{
-	font-family: 'Open Sans Condensed', arial, sans;
+	font-family: 'Open Sans Condensed', arial;
 	width: 40%;
 	padding: 30px;
 	font-size: 1.5em;
 	font-family: Arial;
 	background-color: #D4D0C8;
-	margin: 50px auto;
 	border-style: ridge;
 	border-width: 5px;
 	border-color: #003087;
 	text-decoration: underline;
-	
+
 }
 #graficos{
 	width: 800px;
 	height: 700px;
-
-}         
+	
+}
+#esco{
+	width: 100%;
+}       
 #intro{
+	margin: 50px;
 	font-size: 1.5em;
 	font-family: 'Lucida Sans';
 	width: 40%;
@@ -49,6 +52,7 @@
 	
 }
 #fundo{
+	margin: 50px;
 	float: left; 
 	width: 40%;
 	margin-left: 3%;
@@ -65,8 +69,10 @@
 	margin-left: 50%;
 	width: 30%;
 	margin-right: 10px;
-}	
+
+}
 #grand{
+	margin: 50px;
 	font-family: Arial;
 	font-size: 5em;
 	margin-left: 50%;
@@ -110,20 +116,20 @@ body{
 .form-style-8 select 
 {
 	margin-top: 7px ;
-	border-color: grey;
+	border-color: rgb(0, 0, 0);
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	outline: none;
 	display: block;
 	width: 50%;
-	padding: 15px;
-	border: 5px groove;
+	padding: 2px;
+	border: 3px groove;
 	border-bottom: 1px solid whitesmoke;
 	background: whitesmoke;
 	margin-bottom: 10px;
-	font: 5px Arial, Helvetica, sans-serif;
-	height: 20px;
+	font: 32px Arial;
+	height: 36px;
 }
 .form-style-8 textarea{
 	resize:none;

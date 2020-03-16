@@ -14,6 +14,54 @@ class Oliveira:
         return retorno
 
 
+class BarrosSimplificada:
+
+    def BS_logalpha(ARG):
+        logalpha = (-1.07329) + (-1.59578 * (ARG/1000))
+        logalpha = round(logalpha, 3)
+        return logalpha
+
+    def BS_alpha(log):
+        alpha = 10**log
+        alpha = N = round(alpha, 3)
+        return alpha
+
+    def BS_n(t_are, silt):
+        N = (1.134153) + (0.722216*(t_are/1000)) + (0.39574*(silt/1000))
+        N = round(N, 3)
+        return N
+
+    def BS_thetar(t_are, arg):
+        thetar = (0.128617) + (-0.14836*(t_are/1000)) + (0.35705*(arg/1000))
+        thetar = round(thetar, 3)
+        return thetar
+
+    def BS_thetas(t_are, silt):
+        thetas = (0.434714) + (-0.114177*(t_are/1000)) + (0.117845*(silt/1000))
+        thetas = round(thetas, 3)
+        return thetas
+
+    def BS_zu(alpha, n, thetar, thetas):
+        bs_zu = thetar + ((thetas-thetar) / ((1+(alpha*10)**n)**(1-(1/n))))
+        bs_zu = round(bs_zu, 3)
+        return bs_zu
+
+    def BS_tt(alpha, n, thetar, thetas):
+        bs_tt = thetar + ((thetas-thetar) / ((1+(alpha*33)**n)**(1-(1/n))))
+        bs_tt = round(bs_tt, 3)
+        return bs_tt
+
+    def BS_pc(alpha, n, thetar, thetas):
+        bs_pc = thetar + ((thetas-thetar) / ((1+(alpha*1500)**n)**(1-(1/n))))
+        bs_pc = round(bs_pc, 3)
+        return bs_pc
+
+    def bar_ad(tt, pc):
+        AD = tt - pc
+        AD = round(AD, 3)
+        return AD
+
+
 class Barros:
     # alfa de barros
     def bar_alpha(T_ARE, ARG, SOLO):
