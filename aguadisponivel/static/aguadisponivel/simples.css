@@ -27,7 +27,6 @@
 	width: 40%;
 	padding: 30px;
 	font-size: 1.5em;
-	font-family: Arial;
 	background-color: #D4D0C8;
 	border-style: ridge;
 	border-width: 5px;
@@ -35,49 +34,78 @@
 	text-decoration: underline;
 
 }
+.explicando{
+	font-family: 'comic sans', cursive;
+	height: 40%;
+	width: 80%;
+	padding: 30px;
+	font-size: 1.5em;
+	background-color: white;
+	border-style: ridge;
+	border-width: 5px;
+	box-shadow: #007a33;
+	border-color: #003087;
+}
+#explicando{
+	margin: auto;
+	clear: both;
+}
 #graficos{
 	width: 800px;
 	height: 700px;
 	
 }
-#esco{
-	width: 100%;
+#intro_excel{
+  	align-items: center;
+  	justify-content: center;
+	float: center;
+	margin-left: 30%;
+	margin-right: 30%;
 }       
 #intro{
-	margin: 50px;
+	margin: 25px;
+	margin-right: 50px;
 	font-size: 1.5em;
 	font-family: 'Lucida Sans';
 	width: 40%;
-	margin-left: 50%;
+	float: right;
 	
 }
-#fundo{
+#fundo_excel{
 	margin: 50px;
-	float: left; 
+	float: center; 
 	width: 40%;
-	margin-left: 3%;
+	margin-left: 30%;
+	margin-right: 30%;
 
 }
-#direita{
+#fundo{
+	margin: 25px;
 	margin-left: 50px;
-
+	float: center; 
+	width: 40%;
+	float: left;
+}
+#direita{
+	margin: 25px;
+	margin-right: 50px;
+	float: right;
 }
 #resposta{
 	font-size: 1.5em;
 	font-family: 'Lucida Sans';
 	font-weight: bolder;
-	margin-left: 50%;
 	width: 30%;
-	margin-right: 10px;
-
+	margin: 25px;
+	margin-right: 50px;
+	float: right;
 }
 #grand{
-	margin: 50px;
+	margin: 25px;
+	margin-right: 50px;
 	font-family: Arial;
 	font-size: 5em;
-	margin-left: 50%;
-
-	
+	float: right;
 }
 .embaixo{
 	color: aliceblue;

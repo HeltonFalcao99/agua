@@ -8,7 +8,7 @@
 {% block content %}
 
     
-<div class="form-style-8" id="prim" >
+<div class="form-style-8" id="intro_excel" >
         
     <p>Aqui você vai inserir um arquivo excel.xlxs. </p>
     <p>O arquivo deve seguir o modelo do arquivo disponibilizado abaixo e para edita-lo é nescessario clicar em "habilitar edicao".</p>
@@ -22,7 +22,7 @@
 
 </div>
 
-    <div id="fundo" class="form-style-8" >
+    <div id="fundo_excel" class="form-style-8" >
         <form action="{% url 'aguadisponivel:excel' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <input type="file"
@@ -35,6 +35,5 @@
         </form>
     </div>
 
-        <hr>
 
 {%endblock%}

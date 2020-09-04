@@ -62,8 +62,10 @@ class PTFdados(models.Model):
     M_ORG = models.FloatField(null=True, blank=True)
     OLIV = models.FloatField(null=True, blank=True)
     B_ZU = models.FloatField(null=True, blank=True)
-    B_TT = models.FloatField(null=True, blank=True)
-    B_PC = models.FloatField(null=True, blank=True)
+    B_TT = models.FloatField(null=True, blank=True,
+                             verbose_name='Theta a 33mm')
+    B_PC = models.FloatField(null=True, blank=True,
+                             verbose_name='Theta a 1500mm')
     B_ALPHA = models.FloatField(null=True, blank=True)
     B_N = models.FloatField(null=True, blank=True)
     B_THETAS = models.FloatField(null=True, blank=True)

@@ -4,7 +4,7 @@ import openpyxl
 from openpyxl import Workbook, load_workbook
 from itertools import islice
 from .models import PTFdados
-from .forms import PTFform, Escolha
+from .forms import PTFform
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from os import path
 from .PTF import Oliveira, Barros, Tomasella, BarrosSimplificada
@@ -320,44 +320,44 @@ def PTFview(request):
                 return render(request, "aguadisponivel/PTFtemplate.html", {'form': form, 'oliv': oliv, 'b_alpha': b_alpha, 'b_n': b_n, 'b_thetar': b_thetar, 'b_thetas': b_thetas, 'b_zu': b_zu, 'b_tt': b_tt, 'b_pc': b_pc, 'b_ad': b_ad, 'bs_logalpha': bs_logalpha, 'bs_alpha': bs_alpha, 'bs_n': bs_n, 'bs_thetar': bs_thetar, 'bs_thetas': bs_thetas, 'bs_zu': bs_zu, 'bs_tt': bs_tt, 'bs_pc': bs_pc, 'bs_ad': bs_ad, 't_alpha': t_alpha, 't_n': t_n, 't_thetar': t_thetar, 't_thetas': t_thetas, 't_zu': t_zu, 't_tt': t_tt, 't_pc': t_pc, 't_ad': t_ad})
 
             elif(escolha == 'asad'):
+                if((ARG + SILT + T_ARE) == 1000) and (SOLO <= 2) and (SOLO >= 0.8) and (T_ARE == (AFIN + AGRO)):
+                    oliv = Oliveira.oliveira(T_ARE, SILT, ARG, SOLO)
 
-                oliv = Oliveira.oliveira(T_ARE, SILT, ARG, SOLO)
+                    bs_logalpha = BarrosSimplificada.BS_logalpha(ARG)
+                    bs_alpha = BarrosSimplificada.BS_alpha(bs_logalpha)
+                    bs_n = BarrosSimplificada.BS_n(T_ARE, SILT)
+                    bs_thetar = BarrosSimplificada.BS_thetar(T_ARE, ARG)
+                    bs_thetas = BarrosSimplificada.BS_thetas(T_ARE, SILT)
+                    bs_zu = BarrosSimplificada.BS_zu(
+                        bs_alpha, bs_n, bs_thetar, bs_thetas)
+                    bs_tt = BarrosSimplificada.BS_tt(
+                        bs_alpha, bs_n, bs_thetar, bs_thetas)
+                    bs_pc = BarrosSimplificada.BS_pc(
+                        bs_alpha, bs_n, bs_thetar, bs_thetas)
 
-                bs_logalpha = BarrosSimplificada.BS_logalpha(ARG)
-                bs_alpha = BarrosSimplificada.BS_alpha(bs_logalpha)
-                bs_n = BarrosSimplificada.BS_n(T_ARE, SILT)
-                bs_thetar = BarrosSimplificada.BS_thetar(T_ARE, ARG)
-                bs_thetas = BarrosSimplificada.BS_thetas(T_ARE, SILT)
-                bs_zu = BarrosSimplificada.BS_zu(
-                    bs_alpha, bs_n, bs_thetar, bs_thetas)
-                bs_tt = BarrosSimplificada.BS_tt(
-                    bs_alpha, bs_n, bs_thetar, bs_thetas)
-                bs_pc = BarrosSimplificada.BS_pc(
-                    bs_alpha, bs_n, bs_thetar, bs_thetas)
+                    b_alpha = Barros.bar_alpha(T_ARE, ARG, SOLO)
+                    b_n = Barros.bar_n(T_ARE, SILT, M_ORG)
+                    b_thetar = Barros.bar_thetar(T_ARE, ARG, M_ORG, SOLO)
+                    b_thetas = Barros.bar_thetas(SOLO)
+                    b_zu = Barros.bar_zu(b_alpha, b_n, b_thetar, b_thetas)
+                    b_tt = Barros.bar_tt(b_alpha, b_n, b_thetar, b_thetas)
+                    b_pc = Barros.bar_pc(b_alpha, b_n, b_thetar, b_thetas)
+                    b_ad = Barros.bar_ad(b_tt, b_pc)
 
-                b_alpha = Barros.bar_alpha(T_ARE, ARG, SOLO)
-                b_n = Barros.bar_n(T_ARE, SILT, M_ORG)
-                b_thetar = Barros.bar_thetar(T_ARE, ARG, M_ORG, SOLO)
-                b_thetas = Barros.bar_thetas(SOLO)
-                b_zu = Barros.bar_zu(b_alpha, b_n, b_thetar, b_thetas)
-                b_tt = Barros.bar_tt(b_alpha, b_n, b_thetar, b_thetas)
-                b_pc = Barros.bar_pc(b_alpha, b_n, b_thetar, b_thetas)
-                b_ad = Barros.bar_ad(b_tt, b_pc)
+                    t_alpha = Tomasella.tom_alpha(
+                        (AGRO/10), (AFIN/10), (SILT/10), SOLO, (ARG/10))
+                    t_n = Tomasella.tom_N(
+                        (AGRO/10), (AFIN/10), (SILT/10), (ARG/10))
+                    t_thetar = Tomasella.tom_thetar(
+                        (AGRO/10), (AFIN/10), (SILT/10), SOLO, (ARG/10))
+                    t_thetas = Tomasella.tom_thetas(
+                        (AGRO/10), (AFIN/10), (SILT/10), SOLO, C_ORG)
+                    t_zu = Tomasella.tom_zu(t_alpha, t_n, t_thetar, t_thetas)
+                    t_tt = Tomasella.tom_tt(t_alpha, t_n, t_thetar, t_thetas)
+                    t_pc = Tomasella.tom_pc(t_alpha, t_n, t_thetar, t_thetas)
+                    t_ad = Tomasella.tom_ad(t_tt, t_pc)
 
-                t_alpha = Tomasella.tom_alpha(
-                    (AGRO/10), (AFIN/10), (SILT/10), SOLO, (ARG/10))
-                t_n = Tomasella.tom_N(
-                    (AGRO/10), (AFIN/10), (SILT/10), (ARG/10))
-                t_thetar = Tomasella.tom_thetar(
-                    (AGRO/10), (AFIN/10), (SILT/10), SOLO, (ARG/10))
-                t_thetas = Tomasella.tom_thetas(
-                    (AGRO/10), (AFIN/10), (SILT/10), SOLO, C_ORG)
-                t_zu = Tomasella.tom_zu(t_alpha, t_n, t_thetar, t_thetas)
-                t_tt = Tomasella.tom_tt(t_alpha, t_n, t_thetar, t_thetas)
-                t_pc = Tomasella.tom_pc(t_alpha, t_n, t_thetar, t_thetas)
-                t_ad = Tomasella.tom_ad(t_tt, t_pc)
-
-                return ''
+                    return ''
 
             elif(escolha == 'assadtt'):
                 return ''
