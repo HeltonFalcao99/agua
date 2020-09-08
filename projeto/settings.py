@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+from decouple import config 
+from dj_database_url import parse as dburl
 
 # importing logger settings
 try:
@@ -30,10 +31,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&ax*b$)d_pe12(*&d$9pm%3s5gku@n(!&*1d-&3*m#470@j6o3'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -84,15 +85,9 @@ WSGI_APPLICATION = 'projeto.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
+default_dburl = 'sqlite:///' + sqlite3.db
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'sqlite3.db',     
-    }
-    
-}
-
+    'default': config('DATABASE_URL', default=default_dburl, cast=dburl),}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
