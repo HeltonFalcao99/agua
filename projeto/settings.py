@@ -9,9 +9,8 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os 
 from pathlib import Path
-import django_heroku
 from decouple import config 
 from dj_database_url import parse as dburl
 
@@ -28,10 +27,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['localhost', 'agua-disponivel.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', 'https://aguadisponivel.herokuapp.com/']
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
 
 # Application definition
 
@@ -80,7 +77,7 @@ WSGI_APPLICATION = 'projeto.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-default_dburl = 'sqlite:///' + Path.join(BASE_DIR, 'db.sqlite3')
+default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
 DATABASES = {
     'default': config('DATABASE_URL', default=default_dburl, cast=dburl),}
 
@@ -122,4 +119,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = Path.join(BASE_DIR, 'static_collected' )
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_collected' )
+
+#STATICFILES_DIRS= {  'aguadisponivel/static/aguadisponivel',}

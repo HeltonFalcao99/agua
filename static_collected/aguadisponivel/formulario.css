@@ -1,0 +1,87 @@
+.message {
+    font-weight: 600;
+    color: blue;
+}
+.navbar {
+    background-color: #007a33;
+    font-size: 1em;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    padding: 8px 5px 8px 5px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: inherit;
+}
+.navbar a:hover {
+    background-color: #003087;
+  }
+.navbar-brand {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+body{
+    background-image: url("/aguadisponivel/img/fundo.jpg");
+    background-repeat: no-repeat;
+}
+.navbar-item {
+    font-variant: small-caps;
+    margin-left: 30px;
+}
+
+
+
+
+
+
+* {
+    padding: 0.5px;
+}
+
+fieldset {
+    border: 1px;
+
+}
+
+body, input, select, textarea, button, footer{
+    font-size: 1em;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #CCC;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    display: block;
+    height: auto;
+    width: auto;
+    margin: auto;
+    padding: auto;
+  
+}
+button{
+    width: 40%;
+}
+
+div {
+    margin-bottom: 1em;
+}
+div.tx{
+    font-size: 48px;
+}
+
+label{
+    margin-bottom: 0.2em;
+    color:  black;
+    display: block;
+    font-family: cursive;   
+}
+button{
+    font-size: 1.5em;
+    background: darkgray;
+    border: 0;
+    margin-bottom: 1em;
+    color: #FFF;
+    padding: 0.2em 0.6em;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+
+}
