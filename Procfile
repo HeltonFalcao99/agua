@@ -1,1 +1,1 @@
-web: gunicorn projeto.wsgiheroku config:push -a
+web: gunicorn projeto.wsgiheroku
