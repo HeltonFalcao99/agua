@@ -15,6 +15,7 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 
 
+
 def inicio(request):
     return render(request, "aguadisponivel/home.html")
 
@@ -25,15 +26,6 @@ def about(request):
 
 def explicacao(request):
     return render(request, "aguadisponivel/explicando.html")
-
-
-"""
-def calculo_ad(request):
-    return render(request , "aguadisponivel/ad.html")
-
-def  calculadora(request):
-    return render(request, "aguadisponivel/calculadora.html")
-"""
 
 
 def excel(request):
@@ -188,33 +180,6 @@ def excel(request):
                                      b_pc, b_ad, t_alpha, t_n, t_thetar, t_thetas, t_zu, t_tt, t_pc, t_ad])
         return response
     return render(request, 'aguadisponivel/excel.html')
-
-    """
-		excel_file = request.FILES["excel_file"]
-
-        # you may put validations here to check extension or file size
-
-        wb = openpyxl.load_workbook(excel_file)
-
-        # getting a particular sheet by name out of many sheets
-        worksheet = wb["Sheet1"]
-        print(worksheet)
-
-        excel_data = list()
-        # iterating over the rows and
-        # getting value from each cell in row
-        for row in worksheet.iter_rows():
-            row_data = list()
-            for cell in row:
-                row_data.append(str(cell.value))
-            excel_data.append(row_data)
-
-        return render(request, 'myapp/index.html', {"excel_data":excel_data})
-
-	# getting active sheet
-	active_sheet = wb.active
-	print(active_sheet)
-	"""
 
 
 def PTFview(request):
@@ -435,18 +400,3 @@ def PTFview(request):
 
         else:
             return render(request, "aguadisponivel/home.html")
-
-
-def escolha(request):
-    esco = Escolha(request.POST)
-    if "GET" == request.method:
-
-        return render(request, "aguadisponivel/escolha.html")
-    elif request.method == "POST":
-
-        esc = esco.data['escolha']
-        if esc == "asa":
-            return PTFview(request)
-
-    else:
-        return render(request, "aguadisponivel/home.html")

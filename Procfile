@@ -1,1 +1,1 @@
-web:gunicorn projeto.wsgi --log-file -
+web: gunicorn projeto.wsgiheroku config:push -a

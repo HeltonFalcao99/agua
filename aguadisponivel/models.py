@@ -1,36 +1,8 @@
 from django.db import models
 import os.path
 import sqlite3
+# Create your models here.
 
-
-"""  
-    class Usuario(models.Model):
-        AGREGADO = [
-           ["N", "AD_SOLO"],
-           ["S", "AD_SOLO+AGREGADO"],
-          ["U", "Nenhuma das opções"]
-        ]
-
-
-        ad_solo = models.FloatField(max_length=20, null=False)
-        escolha = models.CharField(max_length=1, choices=AGREGADO)
-    
-        agreg = models.FloatField(null=True)
-        quantidade = models.FloatField(null=False)
-
-        #def __str__ ():
-
-class Calculo(models.Model):
-    ad_solo = models.DecimalField(max_digits=10, decimal_places=2)
-    quantidade = models.DecimalField(max_digits=10, decimal_places=2)
-    agregado = models.DecimalField(max_digits=10, decimal_places=2)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
-   
-    @property
-    def operacao(self):
-        return ((self.ad_solo + self.agregado)* self.quantidade)/100
-
-"""
 
 
 class PTFdados(models.Model):
