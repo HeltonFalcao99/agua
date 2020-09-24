@@ -63,12 +63,12 @@
 	margin-right: 30%;
 }       
 #intro{
-	margin: 25px;
-	margin-right: 50px;
+	margin: 3%;
 	font-size: 1.5em;
 	font-family: 'Lucida Sans';
 	width: 40%;
 	float: right;
+	
 	
 }
 #fundo_excel{
@@ -80,10 +80,8 @@
 
 }
 #fundo{
-	margin: 25px;
-	margin-left: 50px;
-	float: center; 
-	width: 40%;
+	margin: 3%;
+	width: 35%;
 	float: left;
 }
 #direita{
@@ -95,17 +93,18 @@
 	font-size: 1.5em;
 	font-family: 'Lucida Sans';
 	font-weight: bolder;
-	width: 30%;
-	margin: 25px;
-	margin-right: 50px;
+	margin: 3%;
 	float: right;
+	clear: both;
+	width: 30%;
 }
 #grand{
-	margin: 25px;
-	margin-right: 50px;
+	margin: 3%;
 	font-family: Arial;
 	font-size: 5em;
-	float: right;
+	float: end;
+	width: 40%;
+	
 }
 .embaixo{
 	color: aliceblue;
