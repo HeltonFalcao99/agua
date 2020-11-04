@@ -12,4 +12,4 @@ class PTFform(forms.ModelForm):
     class Meta:
         model = PTFdados
         fields = ["escolha", "SBICS", "OLD", "LAT", "LON", "MUN", "GEOCOD",
-                  "T_ARE", "AGRO", "AFIN", "SILT", "ARG", "SOLO", "C_ORG", "B_TT", "B_PC"]
+                  "T_ARE", "AGRO", "AFIN", "SILT", "ARG", "SOLO", "C_ORG" ] #"B_TT", "B_PC"]

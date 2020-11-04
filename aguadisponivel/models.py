@@ -63,8 +63,7 @@ class PTFdados(models.Model):
         (asadtt, 'Areia, Silt, Argila, Densidade e AD 33kPa (TH33)'),
         (asadpc, 'Areia, Silt, Argila e Densidade e AD 1500kPa (TH1500)'),
     ]
-    escolha = models.CharField(max_length=300, choices=opcoes,
-                               default='ct', verbose_name="escolha uma opção de calculo:")
+    escolha = models.CharField(max_length=300, choices=opcoes, verbose_name="escolha uma opção de calculo:", null=True, blank=True)
 
     # soma de areia, silt, argila tem que dar 100
     # densidade 2>= d >= 0,8
